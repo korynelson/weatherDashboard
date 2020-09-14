@@ -1,53 +1,49 @@
-// This is our API key
-var APIKey = "d76a54ec670a9ff8425f5e3466754232";
+$("searchBtn").on("click",function(){
 
-// Here we are building the URL we need to query the database
-var queryURLWeather = "https://api.openweathermap.org/data/2.5/" + "weather?" +
-  "q=Seattle,Washington&appid=" + APIKey;
-  var queryURLForecast = "https://api.openweathermap.org/data/2.5/" + "forecast?" +
-  "q=Seattle,Washington&appid=" + APIKey;
+    $.ajax({
+        url: "https://api.opencagedata.com/geocode/v1/json?q=seattle,wa&key=29af6675a09045828a1222f7eabddf65",
+        method:"GET"
+    })
+    .then(function(response) {
+        console.log(response.results[0].geometry);
+        ajaxCall2(response.results[0].geometry.lat,response.results[0].geometry.lng)
+    });
 
-//Query Current Weather
+})
+
+
+//Query Weather Data From OpenWeather
+function ajaxCall2(lat,lng){
+    console.log(lat)
+    console.log(lng)
+
+    var APIKey = "d76a54ec670a9ff8425f5e3466754232";
+    var queryURL = "https://api.openweathermap.org/data/2.5/onecall?"+"lat="+ lat + "&lon="+ lng +
+    "&exclude={minute,hourly}&appid="+APIKey;
+
   $.ajax({
-    url: queryURLWeather,
+    url: queryURL,
     method: "GET"
   })
   .then(function(response) {
-
-    // Log the queryURL
-    console.log(queryURLWeather);
 
     // Log the resulting object
     console.log(response);
 
+    //Put new object in local storage
+    window.localStorage.setItem("weatherArray",JSON.stringify(response))
+
     // Transfer content to HTML
-    $("#city").html("<h1>" + response.name + " Weather Details</h1>");
-    $("#wind").text("Wind Speed: " + response.wind.speed);
-    $("#humidity").text("Humidity: " + response.main.humidity);
+    $("#city").html("<h1>Current Weather</h1>");
+    $("#wind").text("Wind Speed: " + response.current.wind_speed);
+    $("#humidity").text("Humidity: " + response.current.humidity);
     
     // Convert the temp to fahrenheit
-    var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+    var tempF = (response.current.temp - 273.15) * 1.80 + 32;
 
     // add temp content to html
-    $("#temp").text("Temperature (K) " + response.main.temp);
+    $("#temp").text("Temperature (K) " + response.current.temp);
     $("#tempF").text("Temperature (F) " + tempF.toFixed(2));
-
-    // Log the data in the console as well
-    console.log("Wind Speed: " + response.wind.speed);
-    console.log("Humidity: " + response.main.humidity);
-    console.log("Temperature (F): " + tempF);
   });
+}
 
-  //Query 5 Day Forecast
-  $.ajax({
-    url: queryURLForecast,
-    method: "GET"
-  })
-  .then(function(response) {
-    // Log the queryURL
-    console.log(queryURLForecast);
-
-    // Log the resulting object
-    var day = moment.unix(response.list[1].dt).format('MMM Do')
-    $("#day1").html("<h1>" + day + "</h1>")
-  });
