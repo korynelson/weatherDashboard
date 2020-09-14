@@ -68,9 +68,14 @@ $(document).ready(function(){
       });
     }
 
+    //render list and prepend each new search result 
     function renderList(){
-        console.log(JSON.parse(window.localStorage.getItem("locations"))[0])
-        $(".list-group").html(`<li class="list-group-item">${JSON.parse(window.localStorage.getItem("locations"))[0]}</li>`)
+      var searchHist = JSON.parse(window.localStorage.getItem("locations"));
+      $(".list-group").empty()
+
+      searchHist.forEach(element => {
+        $(".list-group").prepend(`<li class="list-group-item">${element}</li>`)
+      });
     }
 
 });
