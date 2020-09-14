@@ -15,7 +15,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar">
             <a class="navbar-brand">
                 <i class="fas fa-cloud-sun-rain"></i>
                 Weather Dashboard
@@ -45,9 +45,11 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <h5 class="card-title" id="city">Card title</h5>
+              <p class="card-text" id = "wind">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text" id="humidity"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <p class="card-text" id="temp"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <p class="card-text" id="tempF"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>
         </div>
@@ -59,8 +61,8 @@
         <div class="col mb-4">
           <div class="card h-100">
             <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+            <div class="card-body" id="day1">
+              <h5 class="card-title">Day 1</h5>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
           </div>
@@ -69,7 +71,7 @@
           <div class="card h-100">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Day 2</h5>
               <p class="card-text">This is a short card.</p>
             </div>
           </div>
@@ -78,7 +80,7 @@
           <div class="card h-100">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Day 3</h5>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
             </div>
           </div>
@@ -87,7 +89,7 @@
           <div class="card h-100">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Day 4</h5>
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
           </div>
@@ -96,7 +98,7 @@
             <div class="card h-100">
               <img src="..." class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">Day 5</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               </div>
             </div>
@@ -104,6 +106,11 @@
       </div>
 
 </div>
+
+<!--Load scripts here-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="assets/script.js"></script>
 
 </body>
 </html>

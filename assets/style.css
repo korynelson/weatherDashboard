@@ -1,4 +1,7 @@
-
+.navbar{
+  background-color:  #3d3c3c;
+  color: #ffffff;
+}
 
 /* The sidebar menu */
 .sidenav {
@@ -7,7 +10,7 @@
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
 
     left: 0;
-    background-color: rgb(64, 71, 107); /* Black */
+    background-color:  #3c3c3d; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
   }
