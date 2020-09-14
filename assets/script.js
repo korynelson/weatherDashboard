@@ -45,7 +45,7 @@ $(document).ready(function(){
       method: "GET"
     }).then(function(response) {
       // Log the resulting object for troubleshooting
-      //console.log(response);
+      console.log(response);
 
       //Put new object in local storage
       window.localStorage.setItem("weatherArray",JSON.stringify(response))
@@ -64,7 +64,15 @@ $(document).ready(function(){
       $("#tempF").text("Temperature (F) " + tempF.toFixed(2));
 
       //add 5 day forecast
+      dailyWeather = response.daily;
 
+      dailyWeather.forEach((element,i) => {
+        console.log(element.weather[0].icon); 
+        console.log(i); 
+        var icon = element.weather[0].icon;
+        $(`#day${i+1}`).children("img").attr("src",`http://openweathermap.org/img/wn/${icon}@2x.png`)
+
+      });
     });
   }
 
