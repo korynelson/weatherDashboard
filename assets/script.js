@@ -3,9 +3,13 @@ $(document).ready(function(){
     $("#searchBtn").on("click",function(event){
         //this stips the button from submitting the form
         event.preventDefault();
-        var location = ($(this)[0].previousSibling.previousSibling.value);
+        var oldLocations = JSON.parse(window.localStorage.getItem("locations"))||[];
+        var newLocation = ($(this)[0].previousSibling.previousSibling.value);
+        oldLocations.push(newLocation);
+        window.localStorage.setItem('locations',JSON.stringify(oldLocations))
         //run the ajax to get city lat/lng
-        ajaxCall1(location);
+        renderList();
+        ajaxCall1(newLocation);
     });
 
     function ajaxCall1(loc){
@@ -58,7 +62,15 @@ $(document).ready(function(){
         // add temp content to html
         $("#temp").text("Temperature (K) " + response.current.temp);
         $("#tempF").text("Temperature (F) " + tempF.toFixed(2));
+
+        //add 5 day forecast
+
       });
+    }
+
+    function renderList(){
+        console.log(JSON.parse(window.localStorage.getItem("locations"))[0])
+        $(".list-group").html(`<li class="list-group-item">${JSON.parse(window.localStorage.getItem("locations"))[0]}</li>`)
     }
 
 });
