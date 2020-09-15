@@ -65,7 +65,7 @@ $(document).ready(function(){
 
       //add 5 day forecast
       dailyWeather = response.daily;
-      clearForecast()
+      clearForecast(dailyWeather);
 
       dailyWeather.forEach((element,i) => {
         console.log(element.weather[0].icon); 
@@ -75,11 +75,11 @@ $(document).ready(function(){
         var maxTemp = (element.temp.max- 273.15) * 1.80 + 32;
         var minTemp = (element.temp.min- 273.15) * 1.80 + 32;
         var humidity = element.humidity;
-        $(`#day${i+1}`).children("img").attr("src",`http://openweathermap.org/img/wn/${icon}@2x.png`)
-        $(`#day${i+1}`).children(".card-body").append(`<h5 class="card-title">${date}</h5>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Max Temp(F): ${maxTemp.toFixed(2)}</p>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Min Temp(F): ${minTemp.toFixed(2)}</p>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Humidity: ${humidity}</p>`)
+        $(`#day${i+1}`).attr("src",`http://openweathermap.org/img/wn/${icon}@2x.png`)
+        $(`#day${i+1}`).siblings(".card-body").append(`<h5 class="card-title">${date}</h5>`)
+        $(`#day${i+1}`).siblings(".card-body").append(`<p class="card-text">Max Temp(F): ${maxTemp.toFixed(2)}</p>`)
+        $(`#day${i+1}`).siblings(".card-body").append(`<p class="card-text">Min Temp(F): ${minTemp.toFixed(2)}</p>`)
+        $(`#day${i+1}`).siblings(".card-body").append(`<p class="card-text">Humidity: ${humidity}</p>`)
       });
     });
   }
@@ -114,8 +114,14 @@ $(document).ready(function(){
     }
   }
 
-  function clearForecast(){
-    $("h-100").children("card-body").empty();
+  //clear the 5 day forecast before each new city is rendered
+  function clearForecast(array){
+    array.forEach((element,i) => {
+      $(`#day${i+1}`).siblings(".card-body").empty();
+      $(`#day${i+1}`).siblings(".card-body").empty();
+      $(`#day${i+1}`).siblings(".card-body").empty();
+      $(`#day${i+1}`).siblings(".card-body").empty();
+    });
   }
 
 });
