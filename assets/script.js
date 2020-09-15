@@ -27,12 +27,12 @@ $(document).ready(function(){
     }).then(function(response) {
             
     //send this lat/lng data to the second Ajax funtion to get weather
-    ajaxCall2(response.results[0].geometry.lat,response.results[0].geometry.lng)
+    ajaxCall2(loc,response.results[0].geometry.lat,response.results[0].geometry.lng)
     });
   }
     
   //Query Weather Data From OpenWeather
-  function ajaxCall2(lat,lng){
+  function ajaxCall2(loc,lat,lng){
     console.log(lat)
     console.log(lng)
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
       window.localStorage.setItem("weatherArray",JSON.stringify(response))
       var icon = response.current.weather[0].icon;
       // Transfer content to HTML
-      $("#city").html("<h1>Current Weather</h1>");
+      $("#city").html(`<h1>${loc}</h1>`);
       $("#wind").text(`Wind Speed: ${response.current.wind_speed}`);
       $("#humidity").text("Humidity: " + response.current.humidity);
       $("#uvIndex").text(`UV Inex: ${response.current.uvi}`);
@@ -67,13 +67,16 @@ $(document).ready(function(){
       dailyWeather.forEach((element,i) => {
         console.log(element.weather[0].icon); 
         console.log(i); 
+        var date =moment.unix(element.dt).format("MMM Do") ;
         var icon = element.weather[0].icon;
         var maxTemp = element.temp.max;
+        var minTemp = element.temp.min;
+        var humidity = element.humidity;
         $(`#day${i+1}`).children("img").attr("src",`http://openweathermap.org/img/wn/${icon}@2x.png`)
-        $(`#day${i+1}`).children(".card-body").append(`<h5 class="card-title">Date</h5>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Max Temp</p>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Min Temp</p>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Humidity</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<h5 class="card-title">${date}</h5>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Max Temp: ${maxTemp}</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Min Temp: ${minTemp}</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Humidity: ${humidity}</p>`)
       });
     });
   }
