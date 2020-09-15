@@ -65,6 +65,7 @@ $(document).ready(function(){
 
       //add 5 day forecast
       dailyWeather = response.daily;
+      clearForecast()
 
       dailyWeather.forEach((element,i) => {
         console.log(element.weather[0].icon); 
@@ -98,24 +99,23 @@ $(document).ready(function(){
     console.log(uvi)
     if(0<uvi && uvi<3){
       $(".badge").attr("style","background-color:#a0ce00")
-      console.log('hello1')
     }
     else if(3<=uvi && uvi<6){
       $(".badge").attr("style","background-color:#f8b600")
-      console.log('hello2')
     }
     else if(6<=uvi && uvi<8){
       $(".badge").attr("style","background-color:#f85900")
-      console.log('hello3')
     }
     else if(8<=uvi && uvi<11){
       $(".badge").attr("style","background-color:#d8001d")
-      console.log('hello4')
     }
     else{
       $(".badge").attr("style","background-color:#b54cff")
-      console.log('hello5')
     }
+  }
+
+  function clearForecast(){
+    $("h-100").children("card-body").empty();
   }
 
 });
