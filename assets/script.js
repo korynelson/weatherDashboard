@@ -54,13 +54,11 @@ $(document).ready(function(){
       $("#city").html("<h1>Current Weather</h1>");
       $("#wind").text(`Wind Speed: ${response.current.wind_speed}`);
       $("#humidity").text("Humidity: " + response.current.humidity);
+      $("#uvIndex").text(`UV Inex: ${response.current.uvi}`);
       $("#currentIcon").attr("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
       
       // Convert the temp to fahrenheit
       var tempF = (response.current.temp - 273.15) * 1.80 + 32;
-
-      // add temp content to html
-      $("#temp").text("Temperature (K) " + response.current.temp);
       $("#tempF").text("Temperature (F) " + tempF.toFixed(2));
 
       //add 5 day forecast
