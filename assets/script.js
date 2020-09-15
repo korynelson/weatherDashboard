@@ -66,9 +66,9 @@ $(document).ready(function(){
 
       //Put new object in local storage
       var icon = response.current.weather[0].icon;
-      var date =moment.unix(response.current.dt).format("MMM Do") ;
+      var date =moment.unix(response.current.dt).format("ddd M/DD") ;
       // Transfer content to HTML
-      $("#city").html(`<h1>${loc}</h1>`);
+      $("#city").html(`<h5>${loc}</h5>`);
       $("#date").html(`<h5>${date}</h5>`);
       $("#wind").text(`Wind Speed: ${response.current.wind_speed}`);
       $("#humidity").text("Humidity: " + response.current.humidity);
@@ -85,7 +85,7 @@ $(document).ready(function(){
       clearForecast(dailyWeather);
 
       dailyWeather.forEach((element,i) => {
-        var date =moment.unix(element.dt).format("MMM Do") ;
+        var date =moment.unix(element.dt).format("ddd M/DD") ;
         var icon = element.weather[0].icon;
         var maxTemp = (element.temp.max- 273.15) * 1.80 + 32;
         var minTemp = (element.temp.min- 273.15) * 1.80 + 32;

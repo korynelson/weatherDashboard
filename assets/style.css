@@ -1,6 +1,6 @@
 .navbar{
-  background-color:  #3d3c3c;
-  color: #ffffff;
+  background-color: #383f41;
+  color:  #ffffff;
 }
 
 /* The sidebar menu */
@@ -10,7 +10,6 @@
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
 
     left: 0;
-    background-color:  #3c3c3d; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
   }
@@ -20,13 +19,12 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
     display: block;
   }
   
   /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
-    color: #f1f1f1;
+    color: #5c6d70;
   }
   
   /* Style page content */
@@ -44,14 +42,24 @@
   .list-group{
       padding: 10px;
   }
+
+  .list-group-item{
+    background-color:  #9DB4C0;
+  }
+
   .form-inline{
       padding: 10px;
   }
   
   .h-100{
-    background-color: cadetblue;
+    background-color:#9DB4C0;
   }
   
   .btn-secondary{
-    background-color: cadetblue ;
+    background-color: #9DB4C0 ;
+  }
+
+  .mb-3{
+    background-color: #7ba8c0 ;
+
   }
