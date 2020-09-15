@@ -3,6 +3,10 @@ $(document).ready(function(){
   //render previous searches if there are any saved in local storage  
   if(window.localStorage.getItem("locations")!=null){
     renderList();
+    var oldLocations = JSON.parse(window.localStorage.getItem("locations"))||[];
+    length = oldLocations.length;
+    console.log(oldLocations)
+    ajaxCall1(oldLocations[length-1])
   }
 
   $(".list-group-item").on("click",function(){
