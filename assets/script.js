@@ -50,11 +50,13 @@ $(document).ready(function(){
       //Put new object in local storage
       window.localStorage.setItem("weatherArray",JSON.stringify(response))
       var icon = response.current.weather[0].icon;
+      var date =moment.unix(response.current.dt).format("MMM Do") ;
       // Transfer content to HTML
-      $("#city").html(`<h1>${loc}</h1>`);
+      $("#city").html(`<h1>${loc} (${date})</h1>`);
       $("#wind").text(`Wind Speed: ${response.current.wind_speed}`);
       $("#humidity").text("Humidity: " + response.current.humidity);
-      $("#uvIndex").text(`UV Inex: ${response.current.uvi}`);
+      $("#uvIndex").html(`UV Index: <span class="badge badge-secondary">${response.current.uvi}</span>`);
+      uviColor(response.current.uvi)
       $("#currentIcon").attr("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
       
       // Convert the temp to fahrenheit
@@ -69,13 +71,13 @@ $(document).ready(function(){
         console.log(i); 
         var date =moment.unix(element.dt).format("MMM Do") ;
         var icon = element.weather[0].icon;
-        var maxTemp = element.temp.max;
-        var minTemp = element.temp.min;
+        var maxTemp = (element.temp.max- 273.15) * 1.80 + 32;
+        var minTemp = (element.temp.min- 273.15) * 1.80 + 32;
         var humidity = element.humidity;
         $(`#day${i+1}`).children("img").attr("src",`http://openweathermap.org/img/wn/${icon}@2x.png`)
         $(`#day${i+1}`).children(".card-body").append(`<h5 class="card-title">${date}</h5>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Max Temp: ${maxTemp}</p>`)
-        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Min Temp: ${minTemp}</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Max Temp(F): ${maxTemp.toFixed(2)}</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Min Temp(F): ${minTemp.toFixed(2)}</p>`)
         $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Humidity: ${humidity}</p>`)
       });
     });
@@ -89,6 +91,31 @@ $(document).ready(function(){
     searchHist.forEach(element => {
       $(".list-group").prepend(`<li class="list-group-item">${element}</li>`)
     });
+  }
+
+  //Use this function to determin UV Inex badge color
+  function uviColor(uvi){
+    console.log(uvi)
+    if(0<uvi && uvi<3){
+      $(".badge").attr("style","background-color:#a0ce00")
+      console.log('hello1')
+    }
+    else if(3<=uvi && uvi<6){
+      $(".badge").attr("style","background-color:#f8b600")
+      console.log('hello2')
+    }
+    else if(6<=uvi && uvi<8){
+      $(".badge").attr("style","background-color:#f85900")
+      console.log('hello3')
+    }
+    else if(8<=uvi && uvi<11){
+      $(".badge").attr("style","background-color:#d8001d")
+      console.log('hello4')
+    }
+    else{
+      $(".badge").attr("style","background-color:#b54cff")
+      console.log('hello5')
+    }
   }
 
 });
