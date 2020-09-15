@@ -70,8 +70,12 @@ $(document).ready(function(){
         console.log(element.weather[0].icon); 
         console.log(i); 
         var icon = element.weather[0].icon;
+        var maxTemp = element.temp.max;
         $(`#day${i+1}`).children("img").attr("src",`http://openweathermap.org/img/wn/${icon}@2x.png`)
-
+        $(`#day${i+1}`).children(".card-body").append(`<h5 class="card-title">Date</h5>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Max Temp</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Min Temp</p>`)
+        $(`#day${i+1}`).children(".card-body").append(`<p class="card-text">Humidity</p>`)
       });
     });
   }
