@@ -14,6 +14,12 @@ renderList();
       ajaxCall1(newLocation);
   });
 
+  $(".list-group-item").on("click",function(){
+    console.log($(this).text())
+    console.log(window.localStorage)
+    ajaxCall1($(this).text());
+
+  });
 
   //query search location lat/lng from opencagedata geocode
   function ajaxCall1(loc){
