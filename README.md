@@ -1,4 +1,4 @@
-# weatherDashboard
+# Weather Dashboard
 Weather dashboard with 5 day forecast 
 
 This webiste uses 2 third-party APIs to generate weather for any searched city.
@@ -6,8 +6,8 @@ It then outputs this data for Current weather and 5 Day forecast.
 Other features include dynamically updated html, saved location searches.
 
 API's used:
--https://openweathermap.org/api
--https://opencagedata.com/api
+https://openweathermap.org/api
+https://opencagedata.com/api
 
 
 ## User Story
