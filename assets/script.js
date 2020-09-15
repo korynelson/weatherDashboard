@@ -1,4 +1,5 @@
 $(document).ready(function(){
+renderList();
 
   //Initialize local storage of search data as well as gathering weather data (current and 5day)
   $("#searchBtn").on("click",function(event){
@@ -12,6 +13,7 @@ $(document).ready(function(){
       renderList();
       ajaxCall1(newLocation);
   });
+
 
   //query search location lat/lng from opencagedata geocode
   function ajaxCall1(loc){
@@ -52,7 +54,8 @@ $(document).ready(function(){
       var icon = response.current.weather[0].icon;
       var date =moment.unix(response.current.dt).format("MMM Do") ;
       // Transfer content to HTML
-      $("#city").html(`<h1>${loc} (${date})</h1>`);
+      $("#city").html(`<h1>${loc}</h1>`);
+      $("#date").html(`<h5>${date}</h5>`);
       $("#wind").text(`Wind Speed: ${response.current.wind_speed}`);
       $("#humidity").text("Humidity: " + response.current.humidity);
       $("#uvIndex").html(`UV Index: <span class="badge badge-secondary">${response.current.uvi}</span>`);
