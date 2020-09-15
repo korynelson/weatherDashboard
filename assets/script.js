@@ -1,29 +1,37 @@
 $(document).ready(function(){
-renderList();
+
+  //render previous searches if there are any saved in local storage  
+  if(window.localStorage.getItem("locations")!=null){
+    renderList();
+  }
+
+  $(".list-group-item").on("click",function(){
+    ajaxCall1($(this).text());
+  });
 
   //Initialize local storage of search data as well as gathering weather data (current and 5day)
   $("#searchBtn").on("click",function(event){
-      //this stips the button from submitting the form
-      event.preventDefault();
-      var oldLocations = JSON.parse(window.localStorage.getItem("locations"))||[];
-      var newLocation = ($(this)[0].previousSibling.previousSibling.value);
-      oldLocations.push(newLocation);
-      window.localStorage.setItem('locations',JSON.stringify(oldLocations))
-      //run the ajax to get city lat/lng
-      renderList();
-      ajaxCall1(newLocation);
-  });
+    //this stops the button from submitting the form
+    event.preventDefault();
 
-  $(".list-group-item").on("click",function(){
-    console.log($(this).text())
-    console.log(window.localStorage)
-    ajaxCall1($(this).text());
+    //store location search history in local storage
+    var oldLocations = JSON.parse(window.localStorage.getItem("locations"))||[];
+    var newLocation = ($(this)[0].previousSibling.previousSibling.value);
 
+    //Clear the search once we have transfered the values
+    $("#searchInput").val("");
+    oldLocations.push(newLocation);
+    window.localStorage.setItem('locations',JSON.stringify(oldLocations));
+
+    //render the search list 
+    addListItem(newLocation);
+    
+    //run the ajax to get location lat/lng
+    ajaxCall1(newLocation);
   });
 
   //query search location lat/lng from opencagedata geocode
   function ajaxCall1(loc){
-    console.log(loc)
     var APIKey = "29af6675a09045828a1222f7eabddf65";
     var queryURL = "https://api.opencagedata.com/geocode/v1/json?q="+loc+"&key="+ 
     APIKey 
@@ -41,9 +49,6 @@ renderList();
     
   //Query Weather Data From OpenWeather
   function ajaxCall2(loc,lat,lng){
-    console.log(lat)
-    console.log(lng)
-
     var APIKey = "d76a54ec670a9ff8425f5e3466754232";
     var queryURL = "https://api.openweathermap.org/data/2.5/onecall?"+"lat="+ lat + "&lon="+ lng +
     "&exclude={minute,hourly}&appid="+APIKey;
@@ -53,10 +58,9 @@ renderList();
       method: "GET"
     }).then(function(response) {
       // Log the resulting object for troubleshooting
-      console.log(response);
+      //console.log(response);
 
       //Put new object in local storage
-      window.localStorage.setItem("weatherArray",JSON.stringify(response))
       var icon = response.current.weather[0].icon;
       var date =moment.unix(response.current.dt).format("MMM Do") ;
       // Transfer content to HTML
@@ -77,8 +81,6 @@ renderList();
       clearForecast(dailyWeather);
 
       dailyWeather.forEach((element,i) => {
-        console.log(element.weather[0].icon); 
-        console.log(i); 
         var date =moment.unix(element.dt).format("MMM Do") ;
         var icon = element.weather[0].icon;
         var maxTemp = (element.temp.max- 273.15) * 1.80 + 32;
@@ -96,16 +98,19 @@ renderList();
   //render list and prepend each new search result 
   function renderList(){
     var searchHist = JSON.parse(window.localStorage.getItem("locations"));
-    $(".list-group").empty()
+    $(".list-group").empty();
 
     searchHist.forEach(element => {
       $(".list-group").prepend(`<li class="list-group-item">${element}</li>`)
     });
   }
 
+  function addListItem(loc){
+    $(".list-group").prepend(`<li class="list-group-item">${loc}</li>`)
+  }
+
   //Use this function to determin UV Inex badge color
   function uviColor(uvi){
-    console.log(uvi)
     if(0<uvi && uvi<3){
       $(".badge").attr("style","background-color:#a0ce00")
     }
