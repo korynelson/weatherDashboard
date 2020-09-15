@@ -68,7 +68,7 @@ $(document).ready(function(){
       var icon = response.current.weather[0].icon;
       var date =moment.unix(response.current.dt).format("ddd M/DD") ;
       // Transfer content to HTML
-      $("#city").html(`<h5>${loc}</h5>`);
+      $("#city").html(`<h1>${loc}</h1>`);
       $("#date").html(`<h5>${date}</h5>`);
       $("#wind").text(`Wind Speed: ${response.current.wind_speed}`);
       $("#humidity").text("Humidity: " + response.current.humidity);
